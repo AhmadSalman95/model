@@ -1,0 +1,47 @@
+1)####################################
+# open this direction
+
+model/reserech/object_detection/utils/visualization_utils
+
+#add this lines
+#inside function : visualize_boxes_and_labels_on_image_array():
+
+ymaxmum=0
+xminmum=0
+yminmum=0
+xmaxmum=0
+
+#in Draw all boxes onto image: inside for loop
+
+ymaxmum=ymax
+xminmum=xmin
+yminmum=ymin
+xmaxmum=xmax
+
+
+
+
+return image,ymaxmum,xminmum,yminmum,xmaxmum
+################################################
+
+2)######################
+inside your code :
+image,ymax,xmin,ymin,xmax=vis_util.visualize_boxes_and_labels_on_image_array(
+    image,
+    np.squeeze(boxes),
+    np.squeeze(classes).astype(np.int32),
+    np.squeeze(scores),
+    category_index,
+    use_normalized_coordinates=True,
+    line_thickness=3,
+    min_score_thresh=0.60)
+
+
+ymax=round(ymax*height)
+xmin=round(xmin*width)
+ymin=round(ymin*height)
+xmax=round(xmax*width)
+
+cropimage=image[ymin:ymax,xmin:xmax]
+
+cv2.imshow('croped',cropimage)
